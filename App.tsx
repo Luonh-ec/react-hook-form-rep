@@ -1,9 +1,12 @@
-import {View, Text} from 'react-native';
 import React from 'react';
-import LoginScreenDef from './src/screen/LoginScreenDef';
+import Login from './src/screen/Login/Login';
 
 const App = () => {
-  return <LoginScreenDef />;
+  return (
+    <>
+      <Login />
+    </>
+  )
 };
 
 export default App;
