@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import LogoImage from '../../components/LogoImage';
 import InputBox from '../../components/InputBox';
@@ -8,9 +8,7 @@ const Login = () => {
         username: '',
         email: '',
         password: '',
-        confirmpassword: '',
     })
-
 
     const onChangeInput = (e: any) => {
         const formField = e.target.name
@@ -41,12 +39,6 @@ const Login = () => {
                     nativeID='password'
                     value={formData.password}
                     placeholder="password"
-                    onChangeText={onChangeInput}
-                />
-                <InputBox
-                    nativeID='confirmpassword'
-                    value={formData.confirmpassword}
-                    placeholder="confirmpassword"
                     onChangeText={onChangeInput}
                 />
             </View>
