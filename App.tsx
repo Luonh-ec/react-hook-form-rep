@@ -1,12 +1,8 @@
 import React from 'react';
-import UseFormLogin from './src/screen/UseFormLogin';
+import UseFormLogin from './src/screens/UseFormLogin';
 
 const App = () => {
-  return (
-    <>
-      <UseFormLogin />
-    </>
-  )
+  return <UseFormLogin />;
 };
 
 export default App;
