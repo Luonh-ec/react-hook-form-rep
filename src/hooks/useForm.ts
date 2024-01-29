@@ -36,3 +36,5 @@ const useForm = (initialValues: FormData): FormHook => {
     handleSubmit,
   };
 };
+
+export {useForm};
