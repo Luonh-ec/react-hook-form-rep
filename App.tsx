@@ -1,6 +1,5 @@
 import React from 'react';
-import Login from './src/screen/Login/Login';
-import UseFormLogin from './src/screen/UseFormLogin/UseFormLogin';
+import UseFormLogin from './src/screen/UseFormLogin';
 
 const App = () => {
   return (
