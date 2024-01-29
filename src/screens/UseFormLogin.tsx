@@ -16,11 +16,15 @@ interface Login {
   password: string;
 }
 
+let i = 0;
 const UseFormLogin = () => {
   const initialValues = {
     email: '',
     password: '',
   };
+
+  console.log('Login load lần thứ: ', i);
+  i++;
 
   const validationRules = {
     email: validateEmail,
@@ -43,20 +47,20 @@ const UseFormLogin = () => {
       <TextInput
         autoCapitalize="none"
         placeholder="Email"
-        value={values.email}
+        //value={values.email}
         onChangeText={text => handleChange('email', text)}
         style={styles.input}
       />
-      {errors.email && <Text style={{color: 'red'}}>{errors.email}</Text>}
+      {/* {errors.email && <Text style={{color: 'red'}}>{errors.email}</Text>} */}
       <TextInput
         autoCapitalize="none"
         secureTextEntry
         placeholder="Password"
-        value={values.password}
+        //value={values.password}
         onChangeText={text => handleChange('password', text)}
         style={styles.input}
       />
-      {errors.password && <Text style={{color: 'red'}}>{errors.password}</Text>}
+      {/* {errors.password && <Text style={{color: 'red'}}>{errors.password}</Text>} */}
       <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>

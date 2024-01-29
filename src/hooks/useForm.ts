@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useRef} from 'react';
 
 interface FormValues {
   [key: string]: string;
@@ -19,48 +19,49 @@ const useForm = ({
   onSubmit,
   validationRules = {},
 }: UseFormProps) => {
-  const [values, setValues] = useState<FormValues>(initialValues);
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const valuesRef = useRef<FormValues>(initialValues);
+  const errorsRef = useRef<{[key: string]: string}>({});
 
   const handleChange = (name: string, value: string) => {
-    setValues(prevValues => ({
-      ...prevValues,
+    valuesRef.current = {
+      ...valuesRef.current,
       [name]: value,
-    }));
+    };
 
-    validateField(name, value);
+    console.log(valuesRef.current);
   };
 
   const validateField = (name: string, value: string) => {
     if (validationRules[name]) {
-      setErrors(prevErrors => ({
-        ...prevErrors,
+      errorsRef.current = {
+        ...errorsRef.current,
         [name]: validationRules[name](value) || '',
-      }));
+      };
     }
   };
 
   const validateForm = () => {
     const formErrors = Object.keys(validationRules).reduce((acc: any, name) => {
-      const error = validationRules[name](values[name]);
+      const error = validationRules[name](valuesRef.current[name]);
       if (error) {
         acc[name] = error;
       }
       return acc;
     }, {});
-    setErrors(formErrors);
+    errorsRef.current = formErrors;
     return Object.keys(formErrors).length === 0;
   };
 
   const handleSubmit = () => {
     if (validateForm()) {
-      onSubmit(values);
+      onSubmit(valuesRef.current);
     }
+    console.log(valuesRef.current);
   };
 
   return {
-    values,
-    errors,
+    values: valuesRef.current,
+    errors: errorsRef.current,
     handleChange,
     handleSubmit,
   };
