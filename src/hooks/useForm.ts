@@ -1,37 +1,30 @@
-import {FormEvent, useState} from 'react';
+import {useState} from 'react';
 
-interface FormData {
-  username: string;
-  email: string;
-  password: string;
+interface FormValues {
+  [key: string]: string;
 }
 
-interface FormHook {
-  formData: FormData;
-  handleChange: (name: string, value: string) => void;
-  handleSubmit: (
-    callback: (data: FormData) => void,
-  ) => (event: FormEvent) => void;
+interface UseFormProps {
+  initialValues: FormValues;
+  onSubmit: (values: FormValues) => void;
 }
 
-const useForm = (initialValues: FormData): FormHook => {
-  const [formData, setFormData] = useState<FormData>(initialValues);
+const useForm = ({initialValues, onSubmit}: UseFormProps) => {
+  const [values, setValues] = useState<FormValues>(initialValues);
 
   const handleChange = (name: string, value: string) => {
-    setFormData(prevData => ({
-      ...prevData,
+    setValues(prevValues => ({
+      ...prevValues,
       [name]: value,
     }));
   };
 
-  const handleSubmit =
-    (callback: (data: FormData) => void) => (event: FormEvent) => {
-      event.preventDefault();
-      callback(formData);
-    };
+  const handleSubmit = () => {
+    onSubmit(values);
+  };
 
   return {
-    formData,
+    values,
     handleChange,
     handleSubmit,
   };
