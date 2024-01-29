@@ -9,11 +9,6 @@ const useWatch = (fieldNames: string | string[]) => {
 
     fieldsToWatch.forEach(fieldName => {
       console.log(`Watching field ${fieldName}:`, formData[fieldName]);
-
-      // You can add additional logic here if needed
-
-      // For example, you may want to trigger some action when a specific field changes
-      // You can use the value in formData[fieldName] as needed
     });
   }, [formData, fieldNames]);
 
