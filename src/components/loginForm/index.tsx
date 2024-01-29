@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import InputField from './inputForm';
+import InputField from '../fields/inputField';
 
 const LoginForm = ({onSubmit}) => {
   const [email, setEmail] = useState('');
@@ -35,9 +35,6 @@ const LoginForm = ({onSubmit}) => {
     setEmail(text);
 
     // Reset email error khi người dùng bắt đầu nhập
-    if (!isTextFieldEmpty(text)) {
-      setEmailError('');
-    }
 
     // Kiểm tra sau 3 giây
     setTimeout(() => {
@@ -53,9 +50,6 @@ const LoginForm = ({onSubmit}) => {
     setPassword(text);
 
     // Reset password error khi người dùng bắt đầu nhập
-    if (!isTextFieldEmpty(text)) {
-      setPasswordError('');
-    }
 
     setTimeout(() => {
       if (isTextFieldEmpty(text)) {

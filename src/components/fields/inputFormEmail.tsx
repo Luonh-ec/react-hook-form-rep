@@ -1,9 +1,9 @@
 // Tên file: CustomTextInput.js
-import React from 'react';
+import React, {memo, useMemo} from 'react';
 import {KeyboardTypeOptions, StyleSheet, TextInput} from 'react-native';
 
 interface CustomTextInputProps {
-  value: string;
+  value?: string;
   onChangeText: (text: string) => void;
   keyboardType?: KeyboardTypeOptions;
   secureTextEntry?: boolean;
@@ -11,20 +11,20 @@ interface CustomTextInputProps {
 }
 
 let count = 0;
-const InputField: React.FC<CustomTextInputProps> = ({
+const InputFieldEmail = ({
   value,
   onChangeText,
   keyboardType,
   secureTextEntry,
   placeholder,
-}) => {
-  console.log('InputField load lần thứ:', count);
+}: CustomTextInputProps) => {
+  console.log('Field email load lần thứ:', count);
   count = count + 1;
 
   return (
     <TextInput
-      style={[styles.input]}
       value={value}
+      style={[styles.input]}
       onChangeText={onChangeText}
       keyboardType={keyboardType}
       secureTextEntry={secureTextEntry}
@@ -34,7 +34,7 @@ const InputField: React.FC<CustomTextInputProps> = ({
   );
 };
 
-export default InputField;
+export default InputFieldEmail;
 
 const styles = StyleSheet.create({
   input: {
