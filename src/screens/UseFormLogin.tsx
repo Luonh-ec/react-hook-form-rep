@@ -35,7 +35,7 @@ const UseFormLogin = () => {
     console.log('Form submitted with values: ', values);
   };
 
-  const { values, errors, handleChange, handleSubmit } = useForm({
+  const { values, errors, handleChange, handleBlur, handleSubmit } = useForm({
     initialValues,
     onSubmit,
     validationRules,
@@ -48,6 +48,7 @@ const UseFormLogin = () => {
         autoCapitalize="none"
         placeholder="Email"
         onChangeText={text => handleChange('email', text)}
+        onBlur={() => handleBlur('email')}
         style={styles.input}
       />
       {errors['email'] && <Text style={{ color: 'red' }}>{errors['email']}</Text>}
@@ -56,6 +57,7 @@ const UseFormLogin = () => {
         secureTextEntry
         placeholder="Password"
         onChangeText={text => handleChange('password', text)}
+        onBlur={() => handleBlur('password')}
         style={styles.input}
       />
       {errors['password'] && <Text style={{ color: 'red' }}>{errors['password']}</Text>}
