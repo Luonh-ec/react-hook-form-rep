@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+import {useRef, useCallback, useState} from 'react';
 
 interface FormValues {
   [key: string]: string;
@@ -21,21 +21,31 @@ const useForm = ({
 }: UseFormProps) => {
   const valuesRef = useRef<FormValues>(initialValues);
   const errorsRef = useRef<{[key: string]: string}>({});
+  const forceUpdate = useForceUpdate();
 
-  const handleChange = (name: string, value: string) => {
-    valuesRef.current = {
-      ...valuesRef.current,
-      [name]: value,
-    };
+  const handleChange = useCallback(
+    (name: string, value: string) => {
+      valuesRef.current = {
+        ...valuesRef.current,
+        [name]: value,
+      };
 
-    console.log(valuesRef.current);
-  };
+      validateField(name, value);
+      forceUpdate();
+    },
+    [forceUpdate],
+  );
 
   const validateField = (name: string, value: string) => {
     if (validationRules[name]) {
       errorsRef.current = {
         ...errorsRef.current,
         [name]: validationRules[name](value) || '',
+      };
+    } else {
+      errorsRef.current = {
+        ...errorsRef.current,
+        [name]: '',
       };
     }
   };
@@ -56,7 +66,6 @@ const useForm = ({
     if (validateForm()) {
       onSubmit(valuesRef.current);
     }
-    console.log(valuesRef.current);
   };
 
   return {
@@ -65,6 +74,12 @@ const useForm = ({
     handleChange,
     handleSubmit,
   };
+};
+
+// Custom hook to force re-render
+const useForceUpdate = () => {
+  const [, forceUpdate] = useState({});
+  return useCallback(() => forceUpdate({}), []);
 };
 
 export {useForm};
